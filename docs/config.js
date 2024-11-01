@@ -59,14 +59,8 @@ var config = {
                 zoom: 7.98,
                 pitch: 0,
                 bearing: 0,
-                // flyTo additional controls-
-                // These options control the flight curve, making it move
-                // slowly and zoom out almost completely before starting
-                // to pan.
-                //speed: 2, // make the flying slow
-                //curve: 1, // change the speed at which it zooms out
             },
-            markers: [ // Custom property for markers, if supported
+            markers: [ // Custom property for multiple markers
                 {
                     coordinates: [-122.31364, 37.58647] // Marker coordinates
                 },
@@ -202,66 +196,3 @@ var config = {
         }
     ]
 };
-
-// Initialize an array to store active markers
-let activeMarkers = [];
-
-function addMarkersForChapter(chapter) {
-    // Remove existing markers, if any
-    activeMarkers.forEach(marker => marker.remove());
-    activeMarkers = [];
-    
-    // Check if the chapter has markers
-    if (chapter.markers && chapter.markers.length > 0) {
-        chapter.markers.forEach(markerData => {
-            const marker = new mapboxgl.Marker({ color: '#3FB1CE' })
-                .setLngLat(markerData.coordinates)
-                .addTo(map);
-            activeMarkers.push(marker);
-        });
-    }
-}
-
-// Add building extrusion style in the map load event
-map.on('load', function() {
-    console.log('####### MAP LOADED')
-    // Add a layer showing the buildings.
-    map.addLayer({
-        'id': 'building',
-        'source': 'composite',
-        'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 15,
-        'paint': {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-                'interpolate', ['linear'], ['zoom'],
-                15, 0,
-                16.5, ['get', 'height']
-            ],
-            'fill-extrusion-base': [
-                'interpolate', ['linear'], ['zoom'],
-                15, 0,
-                16.5, ['get', 'min_height']
-            ],
-            'fill-extrusion-opacity': 0.6
-        }
-    });
-
-    // Listen for changes in active chapter
-    story.on('change', function(chapterId) {
-        // Find the chapter object in the config by matching the ID
-        const chapter = config.chapters.find(chap => chap.id === chapterId);
-        
-        // Add markers for the current chapter if markers are defined
-        if (chapter && chapter.markers) {
-            console.log('######################')
-            console.log('########## New chapter loaded')
-            console.log('######################')
-            addMarkersForChapter(chapter);
-        }
-    });
-});
-
-console.log('HERRRRREEEEE')
