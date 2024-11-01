@@ -5,10 +5,6 @@
     <title>Mapbox Storytelling</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
-    <!-- Add Google Fonts link to load Roboto font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
@@ -17,7 +13,7 @@
         body {
             margin:0;
             padding:0;
-            font-family: 'Roboto Slab', serif;
+            font-family: sans-serif;
         }
         a, a:hover, a:visited {
             color: #0071bc;
@@ -54,22 +50,9 @@
             position: relative;
             z-index: 5;
         }
-        #header h1 {
-        font-size: 36px;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        }
-        #header h2 {
-            font-size: 15px;
+        #header h1, #header h2, #header p {
             margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        #header p {
-            font-size: 36px;
-            margin: 0;
-            padding: 0;
+            padding: 2vh 2vw;
             text-align: center;
         }
         #footer {
@@ -86,16 +69,6 @@
         #features {
             padding-top: 10vh;
             padding-bottom: 10vh;
-        }
-        #features h3 {
-            font-family: 'Roboto Slab', serif;
-            font-size: 64px; /* adjust size if needed */
-            font-weight: bold; /* or any other weight as per preference */
-        }
-        #features h4 {
-            font-family: 'Roboto Slab', serif;
-            font-size: 24px; /* adjust size if needed */
-            font-weight: bold; /* or any other weight as per preference */
         }
         .hidden {
             visibility: hidden;
@@ -118,25 +91,25 @@
         }
         .light {
             color: #444;
-            background-color: transparent;
+            background-color: #fafafa;
         }
         .dark {
-            color: black;
-            background-color: transparent;
+            color: #fafafa;
+            background-color: #444;
         }
         .step {
             padding-bottom: 50vh;
             /* margin-bottom: 10vh; */
-            opacity: 0;
+            opacity: 0.25;
         }
         .step.active {
             opacity: 0.9;
         }
 
         .step div {
-            padding:  0;
+            padding:  25px 50px;
             line-height: 25px;
-            font-size: 24px;
+            font-size: 13px;
         }
 
         .step img {
@@ -237,18 +210,9 @@ config.chapters.forEach((record, idx) => {
     var chapter = document.createElement('div');
 
     if (record.title) {
-        var titleText = document.createElement('h3');
-        titleText.innerText = record.title;
-        chapter.appendChild(titleText);
-    }
-
-    if (record.subtitle) {
-        var subtitleText = document.createElement('h4');
-        subtitleText.innerText = record.subtitle;
-        subtitleText.style.fontStyle = 'italic';
-        subtitleText.style.backgroundColor = 'white';
-        subtitleText.style.display = 'inline';
-        chapter.appendChild(subtitleText);
+        var title = document.createElement('h3');
+        title.innerText = record.title;
+        chapter.appendChild(title);
     }
 
     if (record.image) {
@@ -260,7 +224,6 @@ config.chapters.forEach((record, idx) => {
     if (record.description) {
         var story = document.createElement('p');
         story.innerHTML = record.description;
-        story.style.fontStyle = 'bold';
         chapter.appendChild(story);
     }
 
