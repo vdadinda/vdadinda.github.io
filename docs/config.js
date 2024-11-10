@@ -13,7 +13,7 @@ var config = {
     title: 'Vania Dwi Adinda',
     subtitle: '',
     byline: '',
-    footer: 'Thanks for scrolling! :-) <br>Check out my <a href="https://drive.google.com/file/d/1kXTBpi1dx-mBWGk-KKlSdfNL-ifRQRvF/view?usp=sharing" target="_blank">Resume</a> and <a href="https://www.linkedin.com/in/vaniadwiadinda/" target="_blank">LinkedIn</a> for more details!',
+    footer: 'Thanks for scrolling! :-) <br>Check out my <a href="resume.pdf" target="_blank">Resume</a> and <a href="https://www.linkedin.com/in/vaniadwiadinda/" target="_blank">LinkedIn</a> for more details!',
     chapters: [
         {
             id: 'slug-style-id',
