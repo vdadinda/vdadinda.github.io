@@ -8,7 +8,7 @@
     <!-- Add Google Fonts link to load Roboto font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
@@ -55,10 +55,14 @@
             z-index: 5;
         }
         #header h1 {
-        font-size: 36px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 52px;
+        font-weight: 700;
         margin: 0;
-        padding: 0;
+        padding: 10px 75px;
         text-align: center;
+        color: white;
+        background-color: black;
         }
         #header h2 {
             font-size: 15px;
@@ -89,13 +93,25 @@
         }
         #features h3 {
             font-family: 'Roboto Slab', serif;
-            font-size: 64px; /* adjust size if needed */
+            font-size: 48px; /* adjust size if needed */
             font-weight: bold; /* or any other weight as per preference */
+            margin-bottom: 30px;
+            /* display: inline;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, rgb(255 69 0) 65%); */
+            /* box-shadow: inset 0 -0.5em rgb(255 203 86); */
+            /* box-shadow: inset 0 -0.5em white; */
         }
         #features h4 {
             font-family: 'Roboto Slab', serif;
             font-size: 24px; /* adjust size if needed */
             font-weight: bold; /* or any other weight as per preference */
+            margin-bottom: 5px;
+        }
+        #features p {
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+            padding: 5px;
         }
         .hidden {
             visibility: hidden;
@@ -105,11 +121,11 @@
             margin: 0 auto;
         }
         .lefty {
-            width: 33vw;
+            width: 26vw;
             margin-left: 5vw;
         }
         .righty {
-            width: 33vw;
+            width: 26vw;
             margin-left: 62vw;
         }
         .fully {
@@ -136,7 +152,7 @@
         .step div {
             padding:  0;
             line-height: 25px;
-            font-size: 24px;
+            font-size: 16px;
         }
 
         .step img {
@@ -254,6 +270,8 @@ config.chapters.forEach((record, idx) => {
     if (record.image) {
         var image = new Image();
         image.src = record.image;
+        image.style.maxHeight = '380px';
+        image.style.width = 'auto';
         chapter.appendChild(image);
     }
 
@@ -311,7 +329,7 @@ var map = new mapboxgl.Map({
     center: config.chapters[0].location.center,
     zoom: config.chapters[0].location.zoom,
     bearing: config.chapters[0].location.bearing,
-    pitch: config.chapters[0].location.pitch || 60,
+    pitch: config.chapters[0].location.pitch || 0,
     interactive: false,
     transformRequest: transformRequest,
     projection: config.projection
@@ -353,14 +371,14 @@ function addMarkersForChapter(chapter) {
     // Check if the chapter has custom markers
     if (chapter.markers && chapter.markers.length > 0) {
         chapter.markers.forEach(markerData => {
-            const marker = new mapboxgl.Marker({ color: config.markerColor })
+            const marker = new mapboxgl.Marker({ color: '#008080'})
                 .setLngLat(markerData.coordinates)
                 .addTo(map);
             activeMarkers.push(marker);
         });
     } else if (config.showMarkers) {
         // Add default marker at chapter's center location
-        const marker = new mapboxgl.Marker({ color: config.markerColor })
+        const marker = new mapboxgl.Marker({ color: '#008080'})
             .setLngLat(chapter.location.center)
             .addTo(map);
         activeMarkers.push(marker);
